@@ -8,22 +8,62 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController
+{
     
     @IBOutlet weak var displayLabel: UILabel!
     
+    private var displayNumber : String = "0"
     
+    private var dotButtonEnable : Bool = true
     
-    @IBAction func calcButtonPressed(_ sender: UIButton) {
+    var number : String
+    {
+        get { return displayNumber }
         
-        //What should happen when a non-number button is pressed
+        set
+        {
+            displayNumber = displayNumber != "0" ? displayNumber + newValue : newValue
+            
+            displayLabel.text = displayNumber
+        }
+    }
     
+    override func viewDidLoad()
+    {
+        super.viewDidLoad()
+        
+        displayLabel.text = number
+    }
+    
+    @IBAction func calcButtonPressed(_ sender: UIButton)
+    {
+        
+        
+        
     }
 
     
-    @IBAction func numButtonPressed(_ sender: UIButton) {
-        
-        //What should happen when a number is entered into the keypad
+    @IBAction func numButtonPressed(_ sender: UIButton)
+    {
+        if let number = sender.currentTitle
+        {
+            
+            if number != "."
+            {
+                self.number = number
+            }
+            else
+            {
+                if dotButtonEnable
+                {
+                    self.number = number
+                    
+                    dotButtonEnable = false
+                }
+            }
+            
+        }
     
     }
 
